@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shootingGame", "shootingGame\shootingGame.csproj", "{209BEA98-F5E5-4C98-AD5C-F0C2648690D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopDownShooter", "TopDownShooter\TopDownShooter.csproj", "{4859568D-83FC-4678-997E-4D2714BC4B72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleship", "Battleship\Battleship.csproj", "{36E129FC-D1EB-406B-8B68-2F7DE5EAB0C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +19,14 @@ Global
 		{209BEA98-F5E5-4C98-AD5C-F0C2648690D2}.Debug|x86.Build.0 = Debug|x86
 		{209BEA98-F5E5-4C98-AD5C-F0C2648690D2}.Release|x86.ActiveCfg = Release|x86
 		{209BEA98-F5E5-4C98-AD5C-F0C2648690D2}.Release|x86.Build.0 = Release|x86
+		{4859568D-83FC-4678-997E-4D2714BC4B72}.Debug|x86.ActiveCfg = Debug|x86
+		{4859568D-83FC-4678-997E-4D2714BC4B72}.Debug|x86.Build.0 = Debug|x86
+		{4859568D-83FC-4678-997E-4D2714BC4B72}.Release|x86.ActiveCfg = Release|x86
+		{4859568D-83FC-4678-997E-4D2714BC4B72}.Release|x86.Build.0 = Release|x86
+		{36E129FC-D1EB-406B-8B68-2F7DE5EAB0C1}.Debug|x86.ActiveCfg = Debug|x86
+		{36E129FC-D1EB-406B-8B68-2F7DE5EAB0C1}.Debug|x86.Build.0 = Debug|x86
+		{36E129FC-D1EB-406B-8B68-2F7DE5EAB0C1}.Release|x86.ActiveCfg = Release|x86
+		{36E129FC-D1EB-406B-8B68-2F7DE5EAB0C1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
