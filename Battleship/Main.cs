@@ -47,10 +47,10 @@ namespace Battleship
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            background_Sprite = Content.Load<Texture2D>("sea");
+            background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
-            DrawField.Init(this.GraphicsDevice, spriteBatch, mainFont, axisFont);
+            //DrawField.Init(this.GraphicsDevice, spriteBatch, mainFont, axisFont);
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,9 +90,7 @@ namespace Battleship
             spriteBatch.Begin();
 
             spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
-            
-            DrawField.Draw();
-          
+                      
             spriteBatch.End();
 
             base.Draw(gameTime);
