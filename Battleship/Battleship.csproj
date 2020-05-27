@@ -41,7 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DrawHelpers\DrawField.cs" />
+    <Compile Include="DrawHelpers\DrawHelper.cs" />
+    <Compile Include="DrawHelpers\Field.cs" />
+    <Compile Include="DrawHelpers\ShipHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,10 +63,11 @@
     <Content Include="Content\font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Content\5ship.xnb" />
+    <None Include="Content\asixFont.xnb" />
     <Content Include="Content\background.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\asixFont.xnb" />
     <None Include="Content\sea.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

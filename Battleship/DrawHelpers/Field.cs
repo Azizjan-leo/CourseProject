@@ -13,7 +13,6 @@ namespace Battleship
         private static SpriteBatch _spriteBatch;
 
         private static SpriteFont _gameFont;
-        private static SpriteFont _axisFont;
 
         // Window size
         private static int _height, _width;
@@ -23,7 +22,6 @@ namespace Battleship
             _graphicsDevice = graphicsDevice;
             _spriteBatch = spriteBatch;
             _gameFont = gameFont;
-            _axisFont = axisFont;
             _height = _graphicsDevice.Viewport.Height;
             _width = _graphicsDevice.Viewport.Width;
     }
@@ -71,21 +69,21 @@ namespace Battleship
             DrawLine(new Vector2(0, 100), new Vector2(_width, 100), Color.White);
 
             // Draw computer's field borders
-            DrawField.DrawRectangle(new Rectangle((int)40, (int)140, 320, 320), Color.Transparent);
+           // DrawField.DrawRectangle(new Rectangle((int)40, (int)140, 320, 320), Color.Transparent);
             // Draw player's field borders
-            DrawField.DrawRectangle(new Rectangle((int)450, (int)140, 320, 320), Color.Transparent);
+            //DrawField.DrawRectangle(new Rectangle((int)450, (int)140, 320, 320), Color.Transparent);
 
-            for (int i = 1; i < 18; i++)
+            for (int i = 1; i < 12; i++)
             {
                 // Vertical 
-                DrawLine(new Vector2(20*i + 20, 140), new Vector2(20 * i + 20, 460), Color.White);
+                DrawLine(new Vector2(30 * i + 10, 140), new Vector2(30 * i + 10, 440), Color.White);
                 // Horizontal 
-                DrawLine(new Vector2(40, 120 + i * 20), new Vector2(360, 120 + i * 20), Color.White);
+                DrawLine(new Vector2(40, i * 30 + 110), new Vector2(340, i * 30 + 110), Color.White);
 
                 // Vertical 
-                DrawLine(new Vector2(20 * i + 430, 140), new Vector2(20 * i + 430, 460), Color.White);
+                DrawLine(new Vector2(30 * i + 420, 140), new Vector2(30 * i + 420, 440), Color.White);
                 // Horizontal 
-                DrawLine(new Vector2(450, 120 + i * 20), new Vector2(770, 120 + i * 20), Color.White);
+                DrawLine(new Vector2(450, 110 + i * 30), new Vector2(750, 110 + i * 30), Color.White);
             }
 
             Write();
@@ -96,13 +94,14 @@ namespace Battleship
             _spriteBatch.DrawString(_gameFont, "CPU", new Vector2(0, 000), Color.White);
             _spriteBatch.DrawString(_gameFont, "YOU", new Vector2(_width/2, 000), Color.White);
 
-            for (int i = 1; i < 17; i++)
+            for (int i = 1; i < 11; i++)
             {
-                _spriteBatch.DrawString(_axisFont, string.Format("{0,2:##}", i), new Vector2(20, 122 + i * 20), Color.White);
-                _spriteBatch.DrawString(_axisFont, string.Format("{0,2:##}", i), new Vector2(430, 122 + i * 20), Color.White);
+                _spriteBatch.DrawString(_gameFont, string.Format("{0,2:##}", i), new Vector2(5, 107 + i * 30), Color.White);
+                _spriteBatch.DrawString(_gameFont, string.Format("{0,2:##}", GetColumnName(i)), new Vector2(30 * i + 6, 107), Color.White);
 
-                _spriteBatch.DrawString(_axisFont, string.Format("{0,2:##}", GetColumnName(i)), new Vector2(20 * i + 20, 120), Color.White);
-                _spriteBatch.DrawString(_axisFont, string.Format("{0,2:##}", GetColumnName(i)), new Vector2(20 * i + 430, 120), Color.White);
+
+                _spriteBatch.DrawString(_gameFont, string.Format("{0,2:##}", i), new Vector2(415, 107 + i * 30), Color.White);                
+                _spriteBatch.DrawString(_gameFont, string.Format("{0,2:##}", GetColumnName(i)), new Vector2(30 * i + 415, 107), Color.White);
             }
         }
 
