@@ -15,11 +15,14 @@ namespace Battleship
 
         Texture2D _ship;
 
+        public Point FC { get; set; } // Field Corner
         public ShipHelper(SpriteBatch spriteBatch, Texture2D ship)
         {
             _spriteBatch = spriteBatch;
             _ship = ship;
         }
+
+
 
         public void Draw()
         {

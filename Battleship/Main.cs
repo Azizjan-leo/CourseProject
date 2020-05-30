@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Battleship.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -18,7 +19,7 @@ namespace Battleship
         SpriteFont mainFont;
         SpriteFont axisFont;
 
-        ShipHelper shipHelper;
+        GamePlay game;
 
         public Main()
         {
@@ -52,7 +53,8 @@ namespace Battleship
             background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
-            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"));   
+            game = new GamePlay(10);
+            //shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"));   
             //DrawField.Init(this.GraphicsDevice, spriteBatch, mainFont, axisFont);
             // TODO: use this.Content to load your game content here
         }
@@ -94,7 +96,7 @@ namespace Battleship
             spriteBatch.Begin();
 
             spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
-            shipHelper.Draw();        
+          // shipHelper.Draw();        
             spriteBatch.End();
 
             base.Draw(gameTime);

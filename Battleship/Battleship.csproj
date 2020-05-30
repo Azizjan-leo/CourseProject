@@ -41,9 +41,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseEntities\Deck.cs" />
+    <Compile Include="BaseEntities\Ship.cs" />
     <Compile Include="DrawHelpers\DrawHelper.cs" />
-    <Compile Include="DrawHelpers\Field.cs" />
+    <Compile Include="DrawHelpers\DrawField.cs" />
+    <Compile Include="BaseEntities\Field.cs" />
     <Compile Include="DrawHelpers\ShipHelper.cs" />
+    <Compile Include="Engine\GamePlay.cs" />
+    <Compile Include="Engine\Randomizer.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +57,9 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -63,13 +71,15 @@
     <Content Include="Content\font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\5ship.xnb" />
-    <None Include="Content\asixFont.xnb" />
     <Content Include="Content\background.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Content\5ship.xnb" />
+    <None Include="Content\asixFont.xnb" />
     <None Include="Content\sea.xnb" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
