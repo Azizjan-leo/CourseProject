@@ -19,7 +19,8 @@ namespace Battleship.BaseEntities
 
         public bool AddShip(int x, int y, bool isHorizontal, int deckNum)
         {
-            if ((isHorizontal && x + deckNum > 10) || (!isHorizontal && y + deckNum > 10)) // A ship should not stick out the field
+
+            if (deckNum > 1 && ((isHorizontal && x + deckNum > 10) || (!isHorizontal && y + deckNum > 10))) // A ship should not stick out the field
                 return false;
 
             int tempX = x, tempY = y;
@@ -66,6 +67,19 @@ namespace Battleship.BaseEntities
                     shipHelper.DrawDeck(deck);
                 }
             }
+        }
+
+        public bool IsShotSuccess(ShipHelper shipHelper, int x, int y)
+        {
+            foreach (var ship in Ships)
+            {
+                foreach (var deck in ship.Decks)
+                {
+                    if (shipHelper.IsShotSuccess(deck, x, y))
+                        return true;
+                }
+            }
+            return false;
         }
     }
 }

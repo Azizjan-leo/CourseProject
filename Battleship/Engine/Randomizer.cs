@@ -13,8 +13,8 @@ namespace Battleship.Engine
         public static (int x, int y, bool isHorizontal) GenNext()
         {
             var rand = new Random();
-            int x = rand.Next(1, 10);
-            int y = rand.Next(1, 10);
+            int x = rand.Next(1, 11);
+            int y = rand.Next(1, 11);
             bool isHorizontal = horiz = !horiz;
             return (x, y, isHorizontal);
         }

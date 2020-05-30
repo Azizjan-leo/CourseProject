@@ -15,22 +15,34 @@ namespace Battleship
         private static SpriteBatch _spriteBatch;
 
         Texture2D _ship;
+        Texture2D _antiShip;
 
         public Point FC { get; set; } // Field Corner
-        public ShipHelper(SpriteBatch spriteBatch, Texture2D ship)
+        public ShipHelper(SpriteBatch spriteBatch, Texture2D ship, Texture2D antiShip)
         {
             _spriteBatch = spriteBatch;
             _ship = ship;
+            _antiShip = antiShip;
         }
 
+        public bool IsShotSuccess(Deck  deck, int x, int y)
+        {
+            int i = 30;
+            if ((x > deck.XPix && x < deck.XPix + i) && (y > deck.YPix && y < deck.YPix + i))
+            {
+                deck.IsAlive = false;
+               // DrawDeck(deck);
+                return true;
+            }
+            return false;
+        }
 
         public void DrawDeck(Deck deck)
         {
             int x = 38, y = 138;
             int i = 30;
-            
-            _spriteBatch.Draw(_ship, new Vector2(x + deck.X * i, y + i * deck.Y), Color.White);
-            
+            var shipTexure = deck.IsAlive ? _ship : _antiShip;
+            _spriteBatch.Draw(shipTexure, new Vector2((x + deck.X * i) - i, (y + i * deck.Y) - i), Color.White); 
         }
 
         public void Draw()

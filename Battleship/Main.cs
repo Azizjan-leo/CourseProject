@@ -20,8 +20,10 @@ namespace Battleship
         SpriteFont axisFont;
 
         GamePlay game;
-
         ShipHelper shipHelper;
+
+        MouseState mState;
+        bool mRealesed = true;
 
         public Main()
         {
@@ -55,7 +57,7 @@ namespace Battleship
             background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
-            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"));
+            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"));
             game = new GamePlay(10);
             game.PlaceShips();
                
@@ -83,6 +85,21 @@ namespace Battleship
                 Exit();
 
             // TODO: Add your update logic here
+            mState = Mouse.GetState();
+
+            if (mState.LeftButton == ButtonState.Pressed && mRealesed == true)
+            {
+                if (game.Shot(mState.X, mState.Y, shipHelper))
+                {
+                 
+                }
+                mRealesed = false;
+            }
+
+            if (mState.LeftButton == ButtonState.Released)
+            {
+                mRealesed = true;
+            }
 
             base.Update(gameTime);
         }

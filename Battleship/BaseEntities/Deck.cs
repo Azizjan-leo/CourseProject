@@ -10,6 +10,23 @@ namespace Battleship.BaseEntities
     {
         public int X { get; set; } // Letter
         public int Y { get; set; } // Number
+       
+        public int XPix // X coodinate in pixels 
+        { 
+            get 
+            {
+                return 8 + 30 * X;
+            }
+            set { }
+        }
+        public int YPix // Y coordinate in pixels
+        {
+            get
+            {
+                return 108 + 30 * Y;
+            }
+            set { }
+        }
         public bool IsAlive { get; set; }
         public Deck(int x, int y, bool isAlive)
         {

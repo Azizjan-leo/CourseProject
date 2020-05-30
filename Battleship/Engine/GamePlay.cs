@@ -18,14 +18,19 @@ namespace Battleship.Engine
            
         }
 
+        public void PlaceShips()
+        {
+            _field.Place();
+        }
+
         public void DrawShips(ShipHelper shipHelper)
         {
             _field.DrawShips(shipHelper);
         }
 
-        public void PlaceShips()
+        public bool Shot(int x, int y, ShipHelper shipHelper)
         {
-            _field.Place();
+            return _field.IsShotSuccess(shipHelper, x, y);
         }
     }
 }

@@ -74,6 +74,9 @@
     <Content Include="Content\background.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\0ship.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\5ship.xnb" />
     <None Include="Content\asixFont.xnb" />
     <None Include="Content\sea.xnb" />
