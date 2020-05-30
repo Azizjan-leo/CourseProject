@@ -26,7 +26,7 @@ namespace Battleship
 
         public void DrawDeck(Deck deck)
         {
-            int x = 40, y = 140;
+            int x = 38, y = 138;
             int i = 30;
             
             _spriteBatch.Draw(_ship, new Vector2(x + deck.X * i, y + i * deck.Y), Color.White);

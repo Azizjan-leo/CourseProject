@@ -47,6 +47,11 @@ namespace Battleship.BaseEntities
                     return false;
                 if ((deck.Y + 1 == y || deck.Y - 1 == y) && deck.X == x) // You can't place a new ship back to back to existing one
                     return false;
+                if ((deck.X + 1 == x && deck.Y + 1 == y) || 
+                    (deck.X - 1 == x && deck.Y - 1 == y) || 
+                    (deck.X + 1 == x && deck.Y - 1 == y) ||
+                    (deck.X - 1 == x && deck.Y + 1 == y)) // Diagonal check
+                    return false;
             }
             return true;
         }

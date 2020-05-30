@@ -19,8 +19,9 @@ namespace Battleship.BaseEntities
 
         public bool AddShip(int x, int y, bool isHorizontal, int deckNum)
         {
-            if ((isHorizontal && x + deckNum > 10) || (!isHorizontal && y > 10)) // A ship should not stick out the field
+            if ((isHorizontal && x + deckNum > 10) || (!isHorizontal && y + deckNum > 10)) // A ship should not stick out the field
                 return false;
+
             int tempX = x, tempY = y;
 
             int xShift = isHorizontal ? 1 : 0;
@@ -43,7 +44,7 @@ namespace Battleship.BaseEntities
 
         public void Place()
         {
-            for (int i = 1; i < 5; i++)
+            for (int i = 4; i > 0; i--)
             {
                 for (int j = i; j < 5; j++)
                 {
