@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Battleship.BaseEntities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,14 @@ namespace Battleship
         }
 
 
+        public void DrawDeck(Deck deck)
+        {
+            int x = 40, y = 140;
+            int i = 30;
+            
+            _spriteBatch.Draw(_ship, new Vector2(x + deck.X * i, y + i * deck.Y), Color.White);
+            
+        }
 
         public void Draw()
         {

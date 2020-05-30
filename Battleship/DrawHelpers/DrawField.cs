@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Battleship.BaseEntities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -24,7 +25,14 @@ namespace Battleship
             _gameFont = gameFont;
             _height = _graphicsDevice.Viewport.Height;
             _width = _graphicsDevice.Viewport.Width;
-    }
+        }
+        public static void DrawShip(Ship ship)
+        {
+            foreach (var deck in ship.Decks)
+            {
+
+            }
+        }
         public static void DrawRectangle(Rectangle coords, Color color)
         {
             if (rect == null)

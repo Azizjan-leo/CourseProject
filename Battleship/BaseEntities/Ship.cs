@@ -12,7 +12,7 @@ namespace Battleship.BaseEntities
         {
             get
             {
-                foreach (var item in decks)
+                foreach (var item in Decks)
                 {
                     if (item.IsAlive)
                         return true;
@@ -22,7 +22,7 @@ namespace Battleship.BaseEntities
             set{ }
         }
 
-        private List<Deck> decks = new List<Deck>();
+        public List<Deck> Decks = new List<Deck>();
 
         public Ship(int deckNum, int x, int y, bool isHorizontal)
         {
@@ -31,7 +31,7 @@ namespace Battleship.BaseEntities
 
             for (int i = 0; i < deckNum; i++)
             {
-                decks.Add(new Deck(x, y, true));
+                Decks.Add(new Deck(x, y, true));
                 x += xShift;
                 y += yShift;
             }
@@ -39,7 +39,7 @@ namespace Battleship.BaseEntities
 
         public bool IsFree(int x, int y)
         {   
-            foreach (var deck in decks)
+            foreach (var deck in Decks)
             {
                 if (deck.X == x && deck.Y == y)
                     return false;

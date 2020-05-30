@@ -14,6 +14,17 @@ namespace Battleship.Engine
         public GamePlay(int shipNum)
         {
             _field = new Field(shipNum);
+          
+           
+        }
+
+        public void DrawShips(ShipHelper shipHelper)
+        {
+            _field.DrawShips(shipHelper);
+        }
+
+        public void PlaceShips()
+        {
             _field.Place();
         }
     }

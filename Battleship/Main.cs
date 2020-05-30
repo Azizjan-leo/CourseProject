@@ -21,6 +21,8 @@ namespace Battleship
 
         GamePlay game;
 
+        ShipHelper shipHelper;
+
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -53,8 +55,10 @@ namespace Battleship
             background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
+            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"));
             game = new GamePlay(10);
-            //shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"));   
+            game.PlaceShips();
+               
             //DrawField.Init(this.GraphicsDevice, spriteBatch, mainFont, axisFont);
             // TODO: use this.Content to load your game content here
         }
@@ -96,7 +100,7 @@ namespace Battleship
             spriteBatch.Begin();
 
             spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
-          // shipHelper.Draw();        
+            game.DrawShips(shipHelper);
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -55,5 +55,16 @@ namespace Battleship.BaseEntities
                 }               
             }
         }
+
+        public void DrawShips(ShipHelper shipHelper)
+        {
+            foreach (var ship in Ships)
+            {
+                foreach (var deck in ship.Decks)
+                {
+                    shipHelper.DrawDeck(deck);
+                }
+            }
+        }
     }
 }
