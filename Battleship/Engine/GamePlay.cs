@@ -32,5 +32,16 @@ namespace Battleship.Engine
         {
             return _field.IsShotSuccess(shipHelper, x, y);
         }
+
+        public int[] GetALiveShipsNum()
+        {
+            int[] ships = new int[] { 0, 0, 0, 0, 0 }; // Because indexing starts from zero we added one more item
+            foreach (var ship in _field.Ships)
+            {
+                if (ship.IsAlive)
+                    ships[ship.Decks.Count]++;
+            }
+            return ships;
+        }
     }
 }

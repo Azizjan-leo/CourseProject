@@ -25,6 +25,8 @@ namespace Battleship
         MouseState mState;
         bool mRealesed = true;
 
+        int[] aliveShips = new int[] { 0, 4, 3, 2, 1 };
+
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -91,7 +93,7 @@ namespace Battleship
             {
                 if (game.Shot(mState.X, mState.Y, shipHelper))
                 {
-                 
+                    aliveShips = game.GetALiveShipsNum();
                 }
                 mRealesed = false;
             }
@@ -117,6 +119,12 @@ namespace Battleship
             spriteBatch.Begin();
 
             spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
+
+            //spriteBatch.DrawString(axisFont, $"SHIPS", new Vector2(107, 1), Color.White);
+            for (int i = 1; i < 5; i++)
+            {
+                spriteBatch.DrawString(axisFont, $"{i} deck: {aliveShips[i]}", new Vector2(110, i * 20 - 10), Color.White);
+            }
             game.DrawShips(shipHelper);
             spriteBatch.End();
 
