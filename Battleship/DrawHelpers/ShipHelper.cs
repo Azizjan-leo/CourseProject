@@ -31,7 +31,6 @@ namespace Battleship
             if ((x > deck.XPix && x < deck.XPix + i) && (y > deck.YPix && y < deck.YPix + i))
             {
                 deck.IsAlive = false;
-               // DrawDeck(deck);
                 return true;
             }
             return false;

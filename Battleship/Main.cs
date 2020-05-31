@@ -15,7 +15,9 @@ namespace Battleship
         SpriteBatch spriteBatch;
 
         Texture2D background_Sprite;
-        Texture2D winBackground;
+
+        bool fin = false; // End of the game
+        Texture2D finBackGround;
 
         SpriteFont mainFont;
         SpriteFont axisFont;
@@ -26,7 +28,8 @@ namespace Battleship
         MouseState mState;
         bool mRealesed = true;
 
-        int[] aliveShips = new int[] { 10, 4, 3, 2, 1 };
+        int[] cpuAliveShips = new int[] { 10, 4, 3, 2, 1 };
+        int[] userAliveShips = new int[] { 10, 4, 3, 2, 1 };
 
         public Main()
         {
@@ -61,7 +64,7 @@ namespace Battleship
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
             shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"));
-            winBackground = Content.Load<Texture2D>("winBackground");
+     
             game = new GamePlay(10);
             game.PlaceShips();
                
@@ -89,22 +92,40 @@ namespace Battleship
                 Exit();
 
             // TODO: Add your update logic here
-            mState = Mouse.GetState();
-
-            if (mState.LeftButton == ButtonState.Pressed && mRealesed == true)
+            if (!fin)
             {
-                if (game.Shot(mState.X, mState.Y, shipHelper))
+                mState = Mouse.GetState();
+
+                if (mState.LeftButton == ButtonState.Pressed && mRealesed == true)
                 {
-                    aliveShips = game.GetALiveShipsNum();
+                    if (game.UserShotSuccess(mState.X, mState.Y, shipHelper))
+                    {
+                        cpuAliveShips = game.GetCpuAliveShipsNum();
+                        if (cpuAliveShips[0] == 0)
+                        {
+                            fin = true;
+                            finBackGround = Content.Load<Texture2D>("winBackground");
+                        }
+                    }
+                   
+                    if (game.CPUShotSuccess(shipHelper, new Random()))
+                    {
+                        userAliveShips = game.GetUserAliveShipsNum();
+                        if (userAliveShips[0] == 0)
+                        {
+                            fin = true;
+                            finBackGround = Content.Load<Texture2D>("looseBackground");
+                        }
+                    }
+
+                    mRealesed = false;
                 }
-                mRealesed = false;
-            }
 
-            if (mState.LeftButton == ButtonState.Released)
-            {
-                mRealesed = true;
+                if (mState.LeftButton == ButtonState.Released)
+                {
+                    mRealesed = true;
+                }
             }
-
             base.Update(gameTime);
         }
 
@@ -119,19 +140,24 @@ namespace Battleship
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            if (aliveShips[0] == 0)
+            if (fin)
             {
-                spriteBatch.Draw(winBackground, new Vector2(0, 0), Color.White);
-                spriteBatch.DrawString(mainFont, $"YOU WON!", new Vector2(12, 23), Color.White);
+                spriteBatch.Draw(finBackGround, new Vector2(0, 0), Color.White);
+                string result = (game.GetCpuAliveShipsNum()[0] == 0) ? "WIN" : "LOOSE";
+                spriteBatch.DrawString(mainFont, $"YOU {result}!", new Vector2(12, 23), Color.White);
             }
             else
             {
                 spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
 
-                //spriteBatch.DrawString(axisFont, $"SHIPS", new Vector2(107, 1), Color.White);
+                
                 for (int i = 1; i < 5; i++)
                 {
-                    spriteBatch.DrawString(axisFont, $"{i} deck: {aliveShips[i]}", new Vector2(110, i * 20 - 10), Color.White);
+                    spriteBatch.DrawString(axisFont, $"{i} deck ships: {cpuAliveShips[i]}", new Vector2(110, i * 20 - 10), Color.White);
+                }
+                for (int i = 1; i < 5; i++)
+                {
+                    spriteBatch.DrawString(axisFont, $"{i} deck ships: {userAliveShips[i]}", new Vector2(510, i * 20 - 10), Color.White);
                 }
                 game.DrawShips(shipHelper);
             }

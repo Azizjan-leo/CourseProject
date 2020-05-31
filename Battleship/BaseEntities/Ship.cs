@@ -24,14 +24,14 @@ namespace Battleship.BaseEntities
 
         public List<Deck> Decks = new List<Deck>();
 
-        public Ship(int deckNum, int x, int y, bool isHorizontal)
+        public Ship((int x, int y) corner, int deckNum, int x, int y, bool isHorizontal)
         {
             int xShift = isHorizontal ? 1 : 0;
             int yShift = isHorizontal ? 0 : 1;
 
             for (int i = 0; i < deckNum; i++)
             {
-                Decks.Add(new Deck(x, y, true));
+                Decks.Add(new Deck(corner, x, y, true));
                 x += xShift;
                 y += yShift;
             }

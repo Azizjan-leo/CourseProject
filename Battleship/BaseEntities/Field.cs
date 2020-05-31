@@ -42,7 +42,7 @@ namespace Battleship.BaseEntities
                 tempY += yShift;
             }        
 
-            Ships.Add(new Ship(deckNum, x, y, isHorizontal));
+            Ships.Add(new Ship(_corner, deckNum, x, y, isHorizontal));
             return true;
         }
 
@@ -52,10 +52,10 @@ namespace Battleship.BaseEntities
             {
                 for (int j = i; j < 5; j++)
                 {
-                    var rand = Randomizer.GenNext();
+                    var rand = Randomizer.GenNextShip();
                     while (!AddShip(rand.x, rand.y, rand.isHorizontal, i))
                     {
-                        rand = Randomizer.GenNext();
+                        rand = Randomizer.GenNextShip();
                     }
                 }               
             }
@@ -72,12 +72,17 @@ namespace Battleship.BaseEntities
             }
         }
 
-        public bool IsShotSuccess(ShipHelper shipHelper, int x, int y)
+        public bool IsShotSuccess(ShipHelper shipHelper, int x, int y, bool isCPUShot)
         {
             foreach (var ship in Ships)
             {
                 foreach (var deck in ship.Decks)
                 {
+                    if (deck.IsAlive && isCPUShot && deck.X == x && deck.Y == y)
+                    {
+                        deck.IsAlive = false;
+                        return true;
+                    }    
                     if (shipHelper.IsShotSuccess(deck, x, y))
                         return true;
                 }

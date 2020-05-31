@@ -10,12 +10,13 @@ namespace Battleship.BaseEntities
     {
         public int X { get; set; } // Letter
         public int Y { get; set; } // Number
-       
+
+        (int x, int y) _corner;
         public int XPix // X coodinate in pixels 
         { 
             get 
             {
-                return 8 + 30 * X;
+                return _corner.x + 30 * X;
             }
             set { }
         }
@@ -23,13 +24,16 @@ namespace Battleship.BaseEntities
         {
             get
             {
-                return 108 + 30 * Y;
+                return _corner.y + 30 * Y;
             }
             set { }
         }
         public bool IsAlive { get; set; }
-        public Deck(int x, int y, bool isAlive)
+
+        public Deck((int x, int y) corner, int x, int y, bool isAlive)
         {
+            _corner.x = corner.x - 30;
+            _corner.y = corner.y - 30;
             X = x;
             Y = y;
             IsAlive = isAlive;
