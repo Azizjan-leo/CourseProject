@@ -1,4 +1,5 @@
 ﻿using Battleship.Engine;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace Battleship.BaseEntities
 {
     public class Field
     {
+        (int X, int Y) _corner; // Top-Left corner's coordinates
         public List<Ship> Ships { get; set; }
 
         
-        public Field(int shipNum)
+        public Field(int x, int y, int shipNum)
         {
+            _corner = (x, y);
             Ships = new List<Ship>(shipNum);
         }
 
@@ -64,7 +67,7 @@ namespace Battleship.BaseEntities
             {
                 foreach (var deck in ship.Decks)
                 {
-                    shipHelper.DrawDeck(deck);
+                    shipHelper.DrawDeck(deck, _corner);
                 }
             }
         }

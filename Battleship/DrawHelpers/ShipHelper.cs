@@ -37,12 +37,11 @@ namespace Battleship
             return false;
         }
 
-        public void DrawDeck(Deck deck)
+        public void DrawDeck(Deck deck, (int x, int y) fieldCorner)
         {
-            int x = 38, y = 138;
             int i = 30;
             var shipTexure = deck.IsAlive ? _ship : _antiShip;
-            _spriteBatch.Draw(shipTexure, new Vector2((x + deck.X * i) - i, (y + i * deck.Y) - i), Color.White); 
+            _spriteBatch.Draw(shipTexure, new Vector2((fieldCorner.x + deck.X * i) - i, (fieldCorner.y + i * deck.Y) - i), Color.White); 
         }
 
         public void Draw()

@@ -57,7 +57,7 @@ namespace Battleship
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            background_Sprite = Content.Load<Texture2D>("background");
+            background_Sprite = Content.Load<Texture2D>("background1");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
             shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"));
