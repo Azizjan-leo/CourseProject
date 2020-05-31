@@ -35,11 +35,14 @@ namespace Battleship.Engine
 
         public int[] GetALiveShipsNum()
         {
-            int[] ships = new int[] { 0, 0, 0, 0, 0 }; // Because indexing starts from zero we added one more item
+            int[] ships = new int[] { 0, 0, 0, 0, 0 }; // The first one is for total alive ships number
             foreach (var ship in _field.Ships)
             {
                 if (ship.IsAlive)
+                {
                     ships[ship.Decks.Count]++;
+                    ships[0]++;
+                }
             }
             return ships;
         }

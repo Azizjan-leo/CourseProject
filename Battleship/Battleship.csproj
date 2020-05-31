@@ -79,6 +79,9 @@
     </Content>
     <None Include="Content\5ship.xnb" />
     <None Include="Content\asixFont.xnb" />
+    <Content Include="Content\winBackground.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\sea.xnb" />
     <None Include="packages.config" />
   </ItemGroup>

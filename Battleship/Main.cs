@@ -15,6 +15,7 @@ namespace Battleship
         SpriteBatch spriteBatch;
 
         Texture2D background_Sprite;
+        Texture2D winBackground;
 
         SpriteFont mainFont;
         SpriteFont axisFont;
@@ -25,7 +26,7 @@ namespace Battleship
         MouseState mState;
         bool mRealesed = true;
 
-        int[] aliveShips = new int[] { 0, 4, 3, 2, 1 };
+        int[] aliveShips = new int[] { 10, 4, 3, 2, 1 };
 
         public Main()
         {
@@ -60,6 +61,7 @@ namespace Battleship
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
             shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"));
+            winBackground = Content.Load<Texture2D>("winBackground");
             game = new GamePlay(10);
             game.PlaceShips();
                
@@ -117,15 +119,23 @@ namespace Battleship
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-
-            spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
-
-            //spriteBatch.DrawString(axisFont, $"SHIPS", new Vector2(107, 1), Color.White);
-            for (int i = 1; i < 5; i++)
+            if (aliveShips[0] == 0)
             {
-                spriteBatch.DrawString(axisFont, $"{i} deck: {aliveShips[i]}", new Vector2(110, i * 20 - 10), Color.White);
+                spriteBatch.Draw(winBackground, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(mainFont, $"YOU WON!", new Vector2(12, 23), Color.White);
             }
-            game.DrawShips(shipHelper);
+            else
+            {
+                spriteBatch.Draw(background_Sprite, new Vector2(0, 0), Color.White);
+
+                //spriteBatch.DrawString(axisFont, $"SHIPS", new Vector2(107, 1), Color.White);
+                for (int i = 1; i < 5; i++)
+                {
+                    spriteBatch.DrawString(axisFont, $"{i} deck: {aliveShips[i]}", new Vector2(110, i * 20 - 10), Color.White);
+                }
+                game.DrawShips(shipHelper);
+            }
+           
             spriteBatch.End();
 
             base.Draw(gameTime);
