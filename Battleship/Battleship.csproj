@@ -43,10 +43,8 @@
   <ItemGroup>
     <Compile Include="BaseEntities\Deck.cs" />
     <Compile Include="BaseEntities\Ship.cs" />
-    <Compile Include="DrawHelpers\DrawHelper.cs" />
-    <Compile Include="DrawHelpers\DrawField.cs" />
     <Compile Include="BaseEntities\Field.cs" />
-    <Compile Include="DrawHelpers\ShipHelper.cs" />
+    <Compile Include="DrawHelpers\DrawHelper.cs" />
     <Compile Include="Engine\GamePlay.cs" />
     <Compile Include="Engine\Randomizer.cs" />
     <Compile Include="Main.cs" />
@@ -71,13 +69,10 @@
     <Content Include="Content\font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\background.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\0ship.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\background1.xnb">
+    <Content Include="Content\background.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\5ship.xnb" />
@@ -91,7 +86,6 @@
     <Content Include="Content\missShot.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\sea.xnb" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

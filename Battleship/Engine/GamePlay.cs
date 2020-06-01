@@ -1,10 +1,5 @@
 ﻿using Battleship.BaseEntities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Battleship.Engine
 {
@@ -26,57 +21,42 @@ namespace Battleship.Engine
             _userField.Place();
         }
 
-        public void DrawShips(ShipHelper shipHelper)
+        public void DrawShips(DrawHelper shipHelper)
         {
-            _cpuField.DrawShips(shipHelper);
-            _userField.DrawShips(shipHelper);
+            _cpuField.DrawShips(shipHelper, true);
+            _userField.DrawShips(shipHelper, false);
         }
 
-        public void Shot(int x, int y, ShipHelper shipHelper)
+        public void Shot(int x, int y, DrawHelper shipHelper)
         {
             if ((x > _cpuField.Corner.X && x < _cpuField.Corner.X + 30 * 10) && (y > _cpuField.Corner.Y && y < _cpuField.Corner.Y + 30 * 10)) // Check if the shot hit the field
             {
-                int gayx = _cpuField.Corner.X;
-                int gayy = _cpuField.Corner.Y;
-                int newX = x, newY = y;
+                int shiftedX = _cpuField.Corner.X;
+                int shiftedY = _cpuField.Corner.Y;
+
                 int shift = 30;
                 for (int i = 0; i < 10; i++)
                 {
-                    if (x > gayx & x < gayx + shift)
-                        newX = gayx;
-                    if (y > gayy & y < gayy + shift)
-                        newY = gayy;
-                    gayx += shift;
-                    gayy += shift;
+                    if (x > shiftedX & x < shiftedX + shift)
+                        x = shiftedX;
+                    if (y > shiftedY & y < shiftedY + shift)
+                        y = shiftedY;
+                    shiftedX += shift;
+                    shiftedY += shift;
                 }
-                if (!_userShots.Contains((newX, newY)))
+                if (!_userShots.Contains((x, y)))
                 {
-                    _userShots.Add((newX, newY));
+                    _userShots.Add((x, y));
                     if (!_cpuField.IsShotSuccess(shipHelper, x, y, false)) // If user hit a deck, cpu will not shoot
                     {
-                        SetMissShot(x, y, _cpuField.Corner, shipHelper);
-                        while (CPUShotSuccess(shipHelper)) ;
+                        shipHelper.MissShots.Add(new Microsoft.Xna.Framework.Point(x, y));
+                        while (CPUShotSuccess(shipHelper));
                     }
                 }                
             }
         }
-        public void SetMissShot(int x, int y, (int x, int y) fieldCorner, ShipHelper shipHelper)
-        {
-            int gayx = fieldCorner.x;
-            int gayy = fieldCorner.y;
-            int shift = 30;
-            for (int i = 0; i < 10; i++)
-            {
-                if (x > gayx & x < gayx + shift)
-                    x = gayx;
-                if (y > gayy & y < gayy + shift)
-                    y = gayy;
-                gayx += shift;
-                gayy += shift;
-            }
-            shipHelper.MissShots.Add(new Microsoft.Xna.Framework.Point(x, y));
-        }
-        public bool CPUShotSuccess(ShipHelper shipHelper)
+
+        public bool CPUShotSuccess(DrawHelper shipHelper)
         {
             (int x, int y) cpuShot;
             do

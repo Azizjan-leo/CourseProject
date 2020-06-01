@@ -1,43 +1,43 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Battleship.BaseEntities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using System.Collections.Generic;
 
-namespace Battleship.DrawHelpers
+namespace Battleship
 {
     public class DrawHelper
     {
-        private static Texture2D _texture;
-
-        private static GraphicsDevice _graphicsDevice;
         private static SpriteBatch _spriteBatch;
 
-        public DrawHelper(SpriteBatch spriteBatch)
+        Texture2D _aliveDeck;
+        Texture2D _deadDeck; // Dead deck texture
+        Texture2D _missShootedCell;
+
+        public Point FC { get; set; } // Field Corner
+
+        public List<Point> MissShots = new List<Point>();
+
+        public DrawHelper(SpriteBatch spriteBatch, Texture2D ship, Texture2D antiShip, Texture2D misShot)
         {
             _spriteBatch = spriteBatch;
+            _aliveDeck = ship;
+            _deadDeck = antiShip;
+            _missShootedCell = misShot;
         }
 
-        private static Texture2D GetTexture()
+        public void DrawDeck(Deck deck, (int x, int y) fieldCorner)
         {
-            if (_texture == null)
+            int i = 30;
+            var shipTexure = (deck.IsAlive) ? _aliveDeck : _deadDeck;
+            _spriteBatch.Draw(shipTexure, new Vector2((fieldCorner.x + deck.X * i) - i, (fieldCorner.y + i * deck.Y) - i), Color.White); 
+        }
+
+        public void DrawMissShots()
+        {
+            foreach (var item in MissShots)
             {
-                _texture = new Texture2D(_spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-                _texture.SetData(new[] { Color.White });
+                _spriteBatch.Draw(_missShootedCell, new Vector2(item.X, item.Y), Color.White);
             }
-
-            return _texture;
-        }
-        public void DrawLine(Vector2 point1, Vector2 point2, Color color, float thickness = 1f)
-        {
-            var distance = Vector2.Distance(point1, point2);
-            var angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
-            DrawLine(point1, distance, angle, color, thickness);
-        }
-
-        public void DrawLine(Vector2 point, float length, float angle, Color color, float thickness = 1f)
-        {
-            var origin = new Vector2(0f, 0.5f);
-            var scale = new Vector2(length, thickness);
-            _spriteBatch.Draw(GetTexture(), point, null, color, angle, origin, scale, SpriteEffects.None, 0);
         }
     }
 }

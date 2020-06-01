@@ -1,10 +1,5 @@
 ﻿using Battleship.Engine;
-using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Battleship.BaseEntities
 {
@@ -61,18 +56,20 @@ namespace Battleship.BaseEntities
             }
         }
 
-        public void DrawShips(ShipHelper shipHelper)
+        public void DrawShips(DrawHelper shipHelper, bool hideAlive)
         {
             foreach (var ship in Ships)
             {
                 foreach (var deck in ship.Decks)
                 {
+                    if (deck.IsAlive && hideAlive)
+                        continue;
                     shipHelper.DrawDeck(deck, Corner);
                 }
             }
         }
 
-        public bool IsShotSuccess(ShipHelper shipHelper, int x, int y, bool isCPUShot)
+        public bool IsShotSuccess(DrawHelper shipHelper, int x, int y, bool isCPUShot)
         {
             foreach (var ship in Ships)
             {
@@ -83,9 +80,20 @@ namespace Battleship.BaseEntities
                         deck.IsAlive = false;
                         return true;
                     }    
-                    if (shipHelper.IsShotSuccess(deck, x, y))
+                    if (IsShotSuccess(deck, x, y))
                         return true;
                 }
+            }
+            return false;
+        }
+
+        public bool IsShotSuccess(Deck deck, int x, int y)
+        {
+            int i = 30;
+            if (x == deck.XPix  && y == deck.YPix)
+            {
+                deck.IsAlive = false;
+                return true;
             }
             return false;
         }

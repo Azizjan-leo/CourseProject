@@ -23,7 +23,7 @@ namespace Battleship
         SpriteFont axisFont;
 
         GamePlay game;
-        ShipHelper shipHelper;
+        DrawHelper shipHelper;
 
         MouseState mState;
         bool mRealesed = true;
@@ -60,10 +60,10 @@ namespace Battleship
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            background_Sprite = Content.Load<Texture2D>("background1");
+            background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
-            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"), Content.Load<Texture2D>("missShot"));
+            shipHelper = new DrawHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"), Content.Load<Texture2D>("missShot"));
      
             game = new GamePlay(10);
             game.PlaceShips();
