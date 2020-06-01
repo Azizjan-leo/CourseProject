@@ -59,6 +59,7 @@ namespace Battleship
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+            // TODO: use this.Content to load your game content here
             spriteBatch = new SpriteBatch(GraphicsDevice);
             background_Sprite = Content.Load<Texture2D>("background");
             mainFont = Content.Load<SpriteFont>("font");
@@ -66,10 +67,7 @@ namespace Battleship
             shipHelper = new DrawHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"), Content.Load<Texture2D>("missShot"));
      
             game = new GamePlay(10);
-            game.PlaceShips();
-               
-            //DrawField.Init(this.GraphicsDevice, spriteBatch, mainFont, axisFont);
-            // TODO: use this.Content to load your game content here
+            game.PlaceShips();   
         }
 
         /// <summary>
