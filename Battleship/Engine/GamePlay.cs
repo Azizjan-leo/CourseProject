@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Battleship.Engine
@@ -11,7 +12,7 @@ namespace Battleship.Engine
     {
         Field _cpuField;
         Field _userField;
-
+        List<(int x, int y)> _cpuShots = new List<(int x, int y)>();
         public GamePlay(int shipNum)
         {
             _cpuField = new Field(38, 138, shipNum);
@@ -35,10 +36,52 @@ namespace Battleship.Engine
             return _cpuField.IsShotSuccess(shipHelper, x, y, false);
         }
 
-        public bool CPUShotSuccess(ShipHelper shipHelper, Random rand)
+        public void Shot(int x, int y, ShipHelper shipHelper)
         {
-            var cpuShot = Randomizer.GetShot(rand);
-            return _userField.IsShotSuccess(shipHelper, cpuShot.x, cpuShot.y, true);
+            if ((x > _cpuField.Corner.X && x < _cpuField.Corner.X + 30 * 10) && (y > _cpuField.Corner.Y && y < _cpuField.Corner.Y + 30 * 10))
+            {
+                if(!UserShotSuccess(x, y, shipHelper)) // If user hit a deck, cpu will not shoot
+                {
+                    SetMissShot(x, y, _cpuField.Corner, shipHelper);
+                    while (CPUShotSuccess(shipHelper));
+                }
+            }
+        }
+        public void SetMissShot(int x, int y, (int x, int y) fieldCorner, ShipHelper shipHelper)
+        {
+            int gayx = fieldCorner.x;
+            int gayy = fieldCorner.y;
+            int shift = 30;
+            for (int i = 0; i < 10; i++)
+            {
+                if (x > gayx & x < gayx + shift)
+                    x = gayx;
+                if (y > gayy & y < gayy + shift)
+                    y = gayy;
+                gayx += shift;
+                gayy += shift;
+            }
+            shipHelper.MissShots.Add(new Microsoft.Xna.Framework.Point(x, y));
+        }
+        public bool CPUShotSuccess(ShipHelper shipHelper)
+        {
+
+            (int x, int y) cpuShot;
+            do
+            {
+                cpuShot = Randomizer.GetShot();
+            } while (_cpuShots.Contains(cpuShot));
+            
+            _cpuShots.Add(cpuShot);
+            if(!_userField.IsShotSuccess(shipHelper, cpuShot.x, cpuShot.y, true))
+            {
+                shipHelper.MissShots.Add(new Microsoft.Xna.Framework.Point(
+                    (_userField.Corner.X + 30 * cpuShot.x) - 30,
+                    (_userField.Corner.Y + 30 * cpuShot.y) - 30
+                    ));
+                return false;
+            }
+            return true;
         }
 
         public int[] GetCpuAliveShipsNum()

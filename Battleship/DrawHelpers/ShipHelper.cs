@@ -15,14 +15,19 @@ namespace Battleship
         private static SpriteBatch _spriteBatch;
 
         Texture2D _ship;
-        Texture2D _antiShip;
+        Texture2D _antiShip; // Dead deck texture
+        Texture2D _misShot;
 
         public Point FC { get; set; } // Field Corner
-        public ShipHelper(SpriteBatch spriteBatch, Texture2D ship, Texture2D antiShip)
+
+        public List<Point> MissShots = new List<Point>();
+
+        public ShipHelper(SpriteBatch spriteBatch, Texture2D ship, Texture2D antiShip, Texture2D misShot)
         {
             _spriteBatch = spriteBatch;
             _ship = ship;
             _antiShip = antiShip;
+            _misShot = misShot;
         }
 
         public bool IsShotSuccess(Deck  deck, int x, int y)
@@ -41,6 +46,15 @@ namespace Battleship
             int i = 30;
             var shipTexure = deck.IsAlive ? _ship : _antiShip;
             _spriteBatch.Draw(shipTexure, new Vector2((fieldCorner.x + deck.X * i) - i, (fieldCorner.y + i * deck.Y) - i), Color.White); 
+        }
+
+        public void DrawMissShots()
+        {
+            int i = 30;
+            foreach (var item in MissShots)
+            {
+                _spriteBatch.Draw(_misShot, new Vector2(item.X, item.Y), Color.White);
+            }
         }
 
         public void Draw()

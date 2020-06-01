@@ -63,7 +63,7 @@ namespace Battleship
             background_Sprite = Content.Load<Texture2D>("background1");
             mainFont = Content.Load<SpriteFont>("font");
             axisFont = Content.Load<SpriteFont>("asixfont");
-            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"));
+            shipHelper = new ShipHelper(spriteBatch, Content.Load<Texture2D>("5ship"), Content.Load<Texture2D>("0ship"), Content.Load<Texture2D>("missShot"));
      
             game = new GamePlay(10);
             game.PlaceShips();
@@ -98,24 +98,19 @@ namespace Battleship
 
                 if (mState.LeftButton == ButtonState.Pressed && mRealesed == true)
                 {
-                    if (game.UserShotSuccess(mState.X, mState.Y, shipHelper))
+                    game.Shot(mState.X, mState.Y, shipHelper);
+
+                    cpuAliveShips = game.GetCpuAliveShipsNum();
+                    if (cpuAliveShips[0] == 0)
                     {
-                        cpuAliveShips = game.GetCpuAliveShipsNum();
-                        if (cpuAliveShips[0] == 0)
-                        {
-                            fin = true;
-                            finBackGround = Content.Load<Texture2D>("winBackground");
-                        }
+                        fin = true;
+                        finBackGround = Content.Load<Texture2D>("winBackground");
                     }
-                   
-                    if (game.CPUShotSuccess(shipHelper, new Random()))
+                    userAliveShips = game.GetUserAliveShipsNum();
+                    if (userAliveShips[0] == 0)
                     {
-                        userAliveShips = game.GetUserAliveShipsNum();
-                        if (userAliveShips[0] == 0)
-                        {
-                            fin = true;
-                            finBackGround = Content.Load<Texture2D>("looseBackground");
-                        }
+                        fin = true;
+                        finBackGround = Content.Load<Texture2D>("looseBackground");
                     }
 
                     mRealesed = false;
@@ -160,6 +155,7 @@ namespace Battleship
                     spriteBatch.DrawString(axisFont, $"{i} deck ships: {userAliveShips[i]}", new Vector2(510, i * 20 - 10), Color.White);
                 }
                 game.DrawShips(shipHelper);
+                shipHelper.DrawMissShots();
             }
            
             spriteBatch.End();

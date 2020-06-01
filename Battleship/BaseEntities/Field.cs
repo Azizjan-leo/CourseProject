@@ -10,13 +10,13 @@ namespace Battleship.BaseEntities
 {
     public class Field
     {
-        (int X, int Y) _corner; // Top-Left corner's coordinates
+        public (int X, int Y) Corner; // Top-Left corner's coordinates
         public List<Ship> Ships { get; set; }
 
         
         public Field(int x, int y, int shipNum)
         {
-            _corner = (x, y);
+            Corner = (x, y);
             Ships = new List<Ship>(shipNum);
         }
 
@@ -42,7 +42,7 @@ namespace Battleship.BaseEntities
                 tempY += yShift;
             }        
 
-            Ships.Add(new Ship(_corner, deckNum, x, y, isHorizontal));
+            Ships.Add(new Ship(Corner, deckNum, x, y, isHorizontal));
             return true;
         }
 
@@ -67,7 +67,7 @@ namespace Battleship.BaseEntities
             {
                 foreach (var deck in ship.Decks)
                 {
-                    shipHelper.DrawDeck(deck, _corner);
+                    shipHelper.DrawDeck(deck, Corner);
                 }
             }
         }

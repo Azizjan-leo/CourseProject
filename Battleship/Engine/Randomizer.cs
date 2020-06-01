@@ -19,8 +19,9 @@ namespace Battleship.Engine
             return (x, y, isHorizontal);
         }
 
-        public static (int x, int y) GetShot(Random rand)
+        public static (int x, int y) GetShot()
         {
+            var rand = new Random();
             int x = rand.Next(1, 11);
             int y = rand.Next(1, 11);
             return (x, y);
