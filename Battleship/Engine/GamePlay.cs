@@ -13,6 +13,7 @@ namespace Battleship.Engine
         Field _cpuField;
         Field _userField;
         List<(int x, int y)> _cpuShots = new List<(int x, int y)>();
+        List<(int x, int y)> _userShots = new List<(int x, int y)>();
         public GamePlay(int shipNum)
         {
             _cpuField = new Field(38, 138, shipNum);
@@ -31,20 +32,32 @@ namespace Battleship.Engine
             _userField.DrawShips(shipHelper);
         }
 
-        public bool UserShotSuccess(int x, int y, ShipHelper shipHelper)
-        {
-            return _cpuField.IsShotSuccess(shipHelper, x, y, false);
-        }
-
         public void Shot(int x, int y, ShipHelper shipHelper)
         {
-            if ((x > _cpuField.Corner.X && x < _cpuField.Corner.X + 30 * 10) && (y > _cpuField.Corner.Y && y < _cpuField.Corner.Y + 30 * 10))
+            if ((x > _cpuField.Corner.X && x < _cpuField.Corner.X + 30 * 10) && (y > _cpuField.Corner.Y && y < _cpuField.Corner.Y + 30 * 10)) // Check if the shot hit the field
             {
-                if(!UserShotSuccess(x, y, shipHelper)) // If user hit a deck, cpu will not shoot
+                int gayx = _cpuField.Corner.X;
+                int gayy = _cpuField.Corner.Y;
+                int newX = x, newY = y;
+                int shift = 30;
+                for (int i = 0; i < 10; i++)
                 {
-                    SetMissShot(x, y, _cpuField.Corner, shipHelper);
-                    while (CPUShotSuccess(shipHelper));
+                    if (x > gayx & x < gayx + shift)
+                        newX = gayx;
+                    if (y > gayy & y < gayy + shift)
+                        newY = gayy;
+                    gayx += shift;
+                    gayy += shift;
                 }
+                if (!_userShots.Contains((newX, newY)))
+                {
+                    _userShots.Add((newX, newY));
+                    if (!_cpuField.IsShotSuccess(shipHelper, x, y, false)) // If user hit a deck, cpu will not shoot
+                    {
+                        SetMissShot(x, y, _cpuField.Corner, shipHelper);
+                        while (CPUShotSuccess(shipHelper)) ;
+                    }
+                }                
             }
         }
         public void SetMissShot(int x, int y, (int x, int y) fieldCorner, ShipHelper shipHelper)
@@ -65,7 +78,6 @@ namespace Battleship.Engine
         }
         public bool CPUShotSuccess(ShipHelper shipHelper)
         {
-
             (int x, int y) cpuShot;
             do
             {
